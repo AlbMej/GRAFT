@@ -1,0 +1,39 @@
+# Python / tooling
+__pycache__/
+*.pyc
+.venv/
+.venvs/
+.pytest_cache/
+*.egg-info/
+wandb/
+*.log
+.DS_Store
+
+# Secrets (sft/.env.example is tracked; real .env files are not)
+.env
+*.env
+
+# rl/: run outputs, rendered figures, extracted figure-input bundle
+rl/output/
+rl/figures/figs/
+rl/final_figures/
+rl/paper_data/output/
+rl/paper_data/respmon-results/
+
+# sft/: checkpoints, logs, eval build products, rendered charts, prepared data
+sft/checkpoints/
+sft/logs/
+sft/build/merged/
+sft/build/eval-dataset/
+sft/build/logs/
+sft/build/vllm.pid
+# Eval jobs: only the released job dirs are tracked. New jobs (e.g. the
+# setup_box.sh smoke-* job) are ignored; their config.json records absolute paths.
+sft/build/jobs/*/
+!sft/build/jobs/base-qwen3-32b-*/
+!sft/build/jobs/gr-s1like-*/
+!sft/build/jobs/gr-split-*/
+sft/build/jobs/*/*__*/
+sft/charts/*.png
+sft/charts/*.pdf
+sft/data/*.jsonl

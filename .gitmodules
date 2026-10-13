@@ -1,0 +1,12 @@
+# Pinned commits (recorded as gitlinks in the index, not here):
+#   sft/third_party/harbor          290ab985edc6915dd60fb1a0d369fedf10d213a1
+#   sft/third_party/terminal-wrench d8a29613235a0ef56a8b70b3142626a533da28c2
+# harbor moved from
+# laude-institute/harbor to harbor-framework/harbor; the pinned commit is
+# reachable at the new URL.
+[submodule "sft/third_party/harbor"]
+	path = sft/third_party/harbor
+	url = https://github.com/harbor-framework/harbor.git
+[submodule "sft/third_party/terminal-wrench"]
+	path = sft/third_party/terminal-wrench
+	url = https://github.com/few-sh/terminal-wrench.git

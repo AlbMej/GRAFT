@@ -1,0 +1,107 @@
+GRAFT: Gradient Routing Adapter Fine Tuning -- code release
+Copyright (c) 2026 Jake Ward and Shawn Hu. Licensed under the MIT License (see LICENSE),
+except where noted below.
+
+This repository contains or depends on third-party material. The items below list
+it, with its origin and license. The full Apache License 2.0 text is in
+LICENSES/Apache-2.0.txt.
+
+---------------------------------------------------------------------------------
+1. vLLM (Apache-2.0)
+---------------------------------------------------------------------------------
+rl/vllm_patches/model_manager.py, rl/vllm_patches/gpu_worker.py and
+rl/vllm_patches/qwen3_5_config.py are modified copies of vLLM 0.17.0 source files.
+Copyright contributors to the vLLM project; qwen3_5_config.py is additionally
+Copyright 2025 The Qwen Team and The HuggingFace Inc. team. Licensed under the
+Apache License 2.0. The original SPDX headers are retained in each file, followed
+by a one-line notice that the file was modified.
+rl/vllm_patches/apply.sh copies them over an installed vLLM 0.17.0.
+
+---------------------------------------------------------------------------------
+2. Hugging Face TRL (Apache-2.0)
+---------------------------------------------------------------------------------
+rl/trl_overrides.py contains code adapted from Hugging Face TRL v0.29.0
+(https://github.com/huggingface/trl), licensed under the Apache License 2.0.
+
+---------------------------------------------------------------------------------
+3. Countdown-Code (Khalifa et al., 2026)
+---------------------------------------------------------------------------------
+The following are ported from Countdown-Code
+(https://github.com/zohaib-khan5040/Countdown-Code):
+  - the Countdown-Code environment prompt and test template in
+    rl/envs/countdown_code.py and rl/tools/modal_countdown_hack_baserate.py,
+    and, with the output contract replaced, rl/tools/expr_only_probe.py;
+  - the SFT data-filter and formatting helpers in
+    rl/tools/countdown_build_sft_data.py;
+  - the two-file HumanEval / LeetCode generalization prompts in
+    rl/tools/countdown-generalization-eval/humaneval_scaffold.py and
+    rl/tools/countdown-generalization-eval/leetcode_scaffold.py.
+That repository had no license file at the time of this release. All rights in
+the ported material remain with its authors.
+
+---------------------------------------------------------------------------------
+4. Terminal Wrench and harbor (Apache-2.0; git submodules, not vendored)
+---------------------------------------------------------------------------------
+sft/scripts/eval/prompts/judge_v1.txt reproduces the Terminal Wrench monitor
+prompt (https://github.com/few-sh/terminal-wrench, Apache-2.0);
+sft/scripts/eval/prompts/judge_v2.txt and judge_v3.txt are modified versions of it.
+
+sft/scripts/eval/patches/harbor_verifier_on_ctx_overflow.patch modifies harbor
+(https://github.com/harbor-framework/harbor, formerly laude-institute/harbor;
+Apache-2.0).
+
+Both projects are referenced as git submodules under sft/third_party/ and are not
+redistributed in this repository.
+
+---------------------------------------------------------------------------------
+5. rl-rewardhacking (Wong et al.)
+---------------------------------------------------------------------------------
+rl-rewardhacking is public at https://github.com/ariahw/rl-rewardhacking. That
+repository has no license file. Code comments and default paths in this
+repository refer to the clone as rl-rewardhacking-private.
+  - The code grader in rl/persistent_code_eval.py imports its
+    create_test_runner_code at runtime, and the LeetCode environments read its
+    LeetCode jsonl files (via rl/envs/_rh_bridge.py). Nothing from it is
+    vendored; point RH_REPO_PATH at a clone.
+  - Hint sentences are reproduced verbatim, or verbatim except for a
+    function/method name, in these perturbation scaffolds under
+    rl/tools/countdown-generalization-eval/:
+      leetcode_runtests_scaffold.py (OverwriteTestsAware replacement and the
+        leetcode system message), leetcode_runtests_detailed_scaffold.py
+        (OverwriteTestsDetailed), leetcode_modifytests_scaffold.py (ModifyTests),
+      and the same sentences adapted to HumanEval in
+        humaneval_runtests_scaffold.py, humaneval_runtests_detailed_scaffold.py,
+        humaneval_modifytests_scaffold.py.
+  - HINT_FUNCTION_NAMES in rl/envs/leetcode.py mirrors that repository's
+    src/data/hints.py:HINT_FUNCTION_NAMES, and the test_modification detector in
+    rl/rh_detectors.py follows its reward-hack categorization.
+
+---------------------------------------------------------------------------------
+6. LeetCodeDataset-derived identifiers
+---------------------------------------------------------------------------------
+rl/envs/leetcode_verified_manifest.json and rl/tools/leetcode_filter_decisions.json
+contain LeetCodeDataset problem ids and test-assert strings.
+
+---------------------------------------------------------------------------------
+7. Evaluation records containing third-party model output
+---------------------------------------------------------------------------------
+sft/build/jobs/*/judge_scores_judge_v3.json contain outputs of the gpt-5.4-nano
+judge model, accessed via OpenRouter: per-trajectory free-text reasoning that
+quotes Qwen3-32B rollout commands and Terminal Wrench task content (Apache-2.0).
+They are released as evaluation records; the judge provider's output terms apply.
+
+---------------------------------------------------------------------------------
+8. Not redistributed (downloaded or obtained separately at runtime)
+---------------------------------------------------------------------------------
+  - Countdown-Tasks-3to4 (Hugging Face Jiayi-Pan/Countdown-Tasks-3to4; no license
+    listed);
+  - LeetCodeDataset-derived files, obtained via rl-rewardhacking;
+  - HumanEval (openai/openai_humaneval; MIT);
+  - NeelNanda/pile-10k;
+  - newfacade/LeetCodeDataset (tag lookup);
+  - the Countdown-Code o4-mini distillation traces (from the Countdown-Code
+    repository);
+  - model weights: HuggingFaceTB/SmolLM2-135M-Instruct, Qwen/Qwen3-8B,
+    Qwen/Qwen3-32B (their own licenses apply);
+  - Terminal Wrench trajectories (generated by third-party models; the
+    providers' terms apply).

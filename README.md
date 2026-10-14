@@ -3,7 +3,7 @@
 Code and figure data for **"Gradient Routing Localizes and Removes Unintended Behaviors in RL"**
 (Ward\*, Hu\*, Wong, Hu, Woodworth, Turner, Cloud; NeurIPS 2026). \*Equal contribution.
 
-Paper: arXiv link TBD.
+Paper: https://arxiv.org/abs/2610.17062
 
 GRAFT adds two MLP adapters (RETAIN and FORGET) to a frozen base model. On training samples that a
 monitor flags, gradients go only to the FORGET adapter. Unflagged samples update both adapters.
